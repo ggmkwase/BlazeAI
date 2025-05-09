@@ -7,6 +7,22 @@ import pyttsx3
 from transformers import pipeline
 import wikipedia
 import gradio as gr
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+
+# Load a model (e.g., GPT-2, or any Hugging Face model)
+model_name = "gpt2"  # Replace with your preferred model (e.g., "facebook/blenderbot-400M-distill")
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
+
+# Ensure GPU usage if available
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model = model.to(device)
+
+def generate_response(prompt):
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+    outputs = model.generate(**inputs, max_new_tokens=50)
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 MEMORY_DIR = "memory"
 
