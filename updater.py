@@ -4,7 +4,7 @@ import sys
 import shutil
 import subprocess
 
-REPO_URL = "https://github.com/YOUR_USERNAME/blaze-ai.git"
+REPO_URL = "https://github.com/ggmkwase/BlazeAI.git"
 UPDATE_FOLDER = "blaze_update_temp"
 
 def update_blaze():
